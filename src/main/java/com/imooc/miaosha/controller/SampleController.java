@@ -1,7 +1,10 @@
 package com.imooc.miaosha.controller;
 
+import com.imooc.miaosha.domain.User;
+import com.imooc.miaosha.result.CodeMsg;
 import com.imooc.miaosha.result.Result;
 import com.imooc.miaosha.service.UserService;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +25,20 @@ public class SampleController {
 
     @RequestMapping("/hello")
     @ResponseBody
-    public Result<String> hello(){
+    public Result<String> hello() {
         return Result.success("hello,imooc");
     }
 
-    public
+    @RequestMapping("/helloError")
+    @ResponseBody
+    public Result<String> helloError() {
+        return Result.error(CodeMsg.SERVER_ERROR);
+    }
+
+    @RequestMapping("/db/tx")
+    @ResponseBody
+    public Result<Boolean> dbTx() {
+        userService.tx();
+        return Result.success(true);
+    }
 }

@@ -31,11 +31,12 @@ public class Result<T> {
 
     /**
      * 失败的时候调用
+     *
      * @param codeMsg
      * @param <T>
      * @return
      */
-    public static <T> Result<T> error(CodeMsg codeMsg){
+    public static <T> Result<T> error(CodeMsg codeMsg) {
         return new Result<T>(codeMsg);
     }
 
@@ -43,23 +44,11 @@ public class Result<T> {
         return code;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
     public String getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
     public T getData() {
         return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
     }
 }
