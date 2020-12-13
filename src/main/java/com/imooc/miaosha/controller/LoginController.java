@@ -1,13 +1,9 @@
 package com.imooc.miaosha.controller;
 
 import com.imooc.miaosha.redis.RedisService;
-import com.imooc.miaosha.result.CodeMsg;
 import com.imooc.miaosha.result.Result;
 import com.imooc.miaosha.service.MiaoshaUserService;
-import com.imooc.miaosha.util.ValidatorUtil;
 import com.imooc.miaosha.vo.LoginVo;
-import com.mysql.cj.util.StringUtils;
-import com.sun.tools.javac.jvm.Code;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +30,10 @@ public class LoginController {
 
     @RequestMapping("/do_login")
     @ResponseBody
-    public Result<Boolean> doLogin(HttpServletResponse response, @Valid LoginVo loginVo) {
+    public Result<String> doLogin(HttpServletResponse response, @Valid LoginVo loginVo) {
         log.info(loginVo.toString());
         // 登录
-        userService.login(response, loginVo);
-        return Result.success(true);
+        String token = userService.login(response, loginVo);
+        return Result.success(token);
     }
 }
