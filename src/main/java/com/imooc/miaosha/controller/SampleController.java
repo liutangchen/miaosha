@@ -1,6 +1,7 @@
 package com.imooc.miaosha.controller;
 
 import com.imooc.miaosha.domain.User;
+import com.imooc.miaosha.rabbitmq.MQSender;
 import com.imooc.miaosha.redis.RedisService;
 import com.imooc.miaosha.redis.UserKey;
 import com.imooc.miaosha.result.CodeMsg;
@@ -20,6 +21,9 @@ public class SampleController {
 
     @Autowired
     RedisService redisService;
+
+    @Autowired
+    MQSender mqSender;
 
     @RequestMapping("/thymeleaf")
     public String thymeleaf(Model model) {
@@ -61,5 +65,33 @@ public class SampleController {
     public Result<User> redisGet() {
         User user = redisService.get(UserKey.getById, "" + 1, User.class);
         return Result.success(user);
+    }
+
+    @RequestMapping("/mq")
+    @ResponseBody
+    public Result<String> mq() {
+        mqSender.send("hello,imooc");
+        return Result.success("hello,world");
+    }
+
+    @RequestMapping("/mq/topic")
+    @ResponseBody
+    public Result<String> topic() {
+        mqSender.sendTopic("hello,imooc");
+        return Result.success("hello,world");
+    }
+
+    @RequestMapping("/mq/fanout")
+    @ResponseBody
+    public Result<String> fanout() {
+        mqSender.sendFanout("hello,imooc");
+        return Result.success("hello,world");
+    }
+
+    @RequestMapping("/mq/headers")
+    @ResponseBody
+    public Result<String> headers() {
+        mqSender.sendHeaders("hello,imooc");
+        return Result.success("hello,world");
     }
 }

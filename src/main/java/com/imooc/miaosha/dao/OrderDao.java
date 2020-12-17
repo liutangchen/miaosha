@@ -12,9 +12,13 @@ public interface OrderDao {
 
     @Insert("insert into order_info(user_id, goods_id, goods_name, goods_count, goods_price, order_channel, status, create_date) values ("
             + "#{userId},#{goodsId},#{goodsName},#{goodsCount},#{goodsPrice},#{orderChannel},#{status},#{createDate})")
-    @Options(useGeneratedKeys=true, keyProperty="id")  // //添加该行，orderInfo对象中的id将被自动设置
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+        // //添加该行，orderInfo对象中的id将被自动设置
     void insert(OrderInfo orderInfo);
 
     @Insert("insert into miaosha_order(user_id, order_id, goods_id) values (#{userId},#{orderId},#{goodsId})")
     void insertMiaoshaOrder(MiaoshaOrder miaoshaOrder);
+
+    @Select("select * from order_info where id = #{orderId}")
+    OrderInfo getOrderById(@Param("orderId") Long orderId);
 }
