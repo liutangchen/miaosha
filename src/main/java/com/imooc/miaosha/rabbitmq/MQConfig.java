@@ -3,13 +3,12 @@ package com.imooc.miaosha.rabbitmq;
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.handler.annotation.Headers;
-
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
 public class MQConfig {
+    public static final String MIAOSHA_QUEUE = "miaosha.queue";
     public static final String QUEUE = "queue";
     public static final String TOPIC_QUEUE1 = "topic.queue1";
     public static final String TOPIC_QUEUE2 = "topic.queue2";
@@ -23,6 +22,11 @@ public class MQConfig {
      *
      * @return
      */
+    @Bean
+    public Queue miaoshaQueue() {
+        return new Queue(MIAOSHA_QUEUE, true);
+    }
+
     @Bean
     public Queue queue() {
         return new Queue(QUEUE, true);

@@ -67,7 +67,7 @@ public class SampleController {
         return Result.success(user);
     }
 
-    @RequestMapping("/mq")
+    /*@RequestMapping("/mq")
     @ResponseBody
     public Result<String> mq() {
         mqSender.send("hello,imooc");
@@ -93,5 +93,5 @@ public class SampleController {
     public Result<String> headers() {
         mqSender.sendHeaders("hello,imooc");
         return Result.success("hello,world");
-    }
+    }*/
 }
